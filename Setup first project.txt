@@ -1,0 +1,12 @@
+1. Download and setup NodeJs:
+    - Link: https://nodejs.org/en/
+    - Latest version.
+2. Install the React VR CLI tool:
+    - npm install -g react-vr-cli
+    - Fix bug "npm is not recognized...": https://stackoverflow.com/questions/20992723/npm-is-not-recognized-as-internal-or-external-command-operable-program-or-bat
+    - Fix bug "npm err integrity checksum failed when using sha512": npm cache verify (https://github.com/cncjs/cncjs/issues/172)
+3. react-vr init WelcomeToVR
+4. cd WelcomeToVR
+5. npm start
+
+Ref: https://facebook.github.io/react-vr/docs/getting-started.html#content
