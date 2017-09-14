@@ -8,7 +8,7 @@ import {
   VrButton,
 } from 'react-vr';
 
-export default class WelcomeToVR extends React.Component {
+export default class Test01 extends React.Component {
 
   constructor(props) {
     super(props);
@@ -22,11 +22,11 @@ export default class WelcomeToVR extends React.Component {
   rotateX(isPlus) {
     if(isPlus) {
       this.setState({
-        RotateX: this.state.RotateX + 1,
+        RotateX: this.state.RotateX + 5,
       });
     } else {
       this.setState({
-        RotateX: this.state.RotateX - 1,
+        RotateX: this.state.RotateX - 5,
       });
     }
   }
@@ -34,11 +34,11 @@ export default class WelcomeToVR extends React.Component {
   rotateY(isPlus) {
     if(isPlus) {
       this.setState({
-        RotateY: this.state.RotateY + 1,
+        RotateY: this.state.RotateY + 5,
       });
     } else {
       this.setState({
-        RotateY: this.state.RotateY - 1,
+        RotateY: this.state.RotateY - 5,
       });
     }
   }
@@ -46,54 +46,40 @@ export default class WelcomeToVR extends React.Component {
   rotateZ(isPlus) {
     if(isPlus) {
       this.setState({
-        RotateZ: this.state.RotateZ + 1,
+        RotateZ: this.state.RotateZ + 5,
       });
     } else {
       this.setState({
-        RotateZ: this.state.RotateZ - 1,
+        RotateZ: this.state.RotateZ - 5,
       });
     }
   }
 
   render() {
+    debugger
     return (
       <View>
         <Pano source={asset('chess-world.jpg')}/>
-        <View style={{
-          transform: [
-            {rotateY: 100},
-            {translateX: 0},
-            {translateY: 0},
-            {translateZ: -3},
-          ],
-        }}>
-          <Text
-            style={{
-              backgroundColor: '#777879',
-              fontSize: 0.8,
-              fontWeight: '400',
-              layoutOrigin: [0.5, 0.5],
-              paddingLeft: 0.2,
-              paddingRight: 0.2,
-              textAlign: 'center',
-              textAlignVertical: 'center',
-              transform: [
-                {rotateX: this.state.RotateX},
-                {rotateY: this.state.RotateY},
-                {rotateZ: this.state.RotateZ},
-                ],
-            }}>
-            hello
-          </Text>
-        </View>
-        <View style={{flexDirection: 'row', 
-          transform: [
-            {rotateY: 100},
-            {translateX: 0},
-            {translateY: -1},
-            {translateZ: -3},
-          ]
-        }}>
+        <Text
+          style={{
+            backgroundColor: '#777879',
+            fontSize: 0.8,
+            fontWeight: '400',
+            layoutOrigin: [0.5, 0.5],
+            paddingLeft: 0.2,
+            paddingRight: 0.2,
+            textAlign: 'center',
+            textAlignVertical: 'center',
+            transform: [
+              {translate: [0, 0, -3]},
+              {rotateX: this.state.RotateX},
+              {rotateY: this.state.RotateY},
+              {rotateZ: this.state.RotateZ},
+              ],
+          }}>
+          hello
+        </Text>
+        <View style={{flexDirection: 'row'}}>
           <VrButton onClick={()=>this.rotateX(true)}>
             <Text style={{backgroundColor: '#777879', fontSize: 0.1, layoutOrigin: [0.5, 0.5], textAlign: 'center', textAlignVertical: 'center', transform: [{translate: [0, 0, -3]}], width: 0.2, height: 0.2}}>
               +
@@ -130,4 +116,4 @@ export default class WelcomeToVR extends React.Component {
   }
 };
 
-AppRegistry.registerComponent('WelcomeToVR', () => WelcomeToVR);
+AppRegistry.registerComponent('Test01', () => Test01);

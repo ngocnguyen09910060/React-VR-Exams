@@ -3,8 +3,20 @@
     <title>WelcomeToVR</title>
     <style>body { margin: 0; }</style>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <style>
+      #orientation {
+        width: 20px; 
+        height: 100px; 
+        background-color: #fff; 
+        position: absolute; 
+        top: 100; 
+        left: 100; 
+        z-index: 1000
+      }
+    </style>
   </head>
   <body>
+      <div id="orientation"></div>
     <!-- When you're ready to deploy your app, update this line to point to your compiled client.bundle.js -->
     <script src="./client.bundle?platform=vr"></script>
     <script>
@@ -16,6 +28,22 @@
         // Attach it to the body tag
         document.body
       );
+    </script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript" src="attrchange.js"></script>
+    <script type="text/javascript" src="attrchange_ext.js"></script>
+    <script type="text/javascript">
+      
+    $(document).ready(function() {
+      $("div > div > div > svg").attrchange({
+          trackValues: true, // set to true so that the event object is updated with old & new values
+          callback: function(evnt) {
+              if(evnt.attributeName == "style") { // which attribute you want to watch for changes
+                  $("#orientation").attr("style", evnt.newValue);
+              }
+          }
+      });
+    });
     </script>
   </body>
 </html>
