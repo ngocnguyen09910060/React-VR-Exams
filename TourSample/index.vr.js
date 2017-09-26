@@ -19,6 +19,7 @@ import React from 'react';
 import {AppRegistry, asset, Image, Pano, Text, Sound, View} from 'react-vr';
 
 import InfoButton from './InfoButton';
+import InfoGazeButton from './InfoGazeButton';
 import NavButton from './NavButton';
 import LoadingSpinner from './LoadingSpinner';
 
@@ -52,7 +53,13 @@ class TourSample extends React.Component {
       locationId: null,
       nextLocationId: null,
       rotation: null,
+      isVRMode: false,
     };
+    this.onMainWindowMessage = this.onMainWindowMessage.bind(this);
+  }
+
+  componentWillMount() {
+    window.addEventListener('message', this.onMainWindowMessage);
   }
 
   componentDidMount() {
@@ -73,6 +80,19 @@ class TourSample extends React.Component {
       rotation: tourConfig.firstPhotoRotation +
         (tourConfig.photos[tourConfig.firstPhotoId].rotationOffset || 0),
     });
+  }
+
+  onMainWindowMessage(e) {
+    switch (e.data.type) {
+      case 'viewInVR':
+        {
+          this.setState({isVRMode: !this.state.isVRMode});
+          postMessage({ type: 'viewInVR' }); 
+        }
+      break;
+      default:
+        return;
+    }
   }
 
   render() {
@@ -139,6 +159,18 @@ class TourSample extends React.Component {
                     // info buttons, which show tooltip on hover, or nav buttons, which
                     // change the current location in the tour.
                     if (tooltip.type) {
+                      if (this.state.isVRMode) {
+                        return (
+                          <InfoGazeButton
+                            key={index}
+                            onEnterSound={asset(soundEffects.navButton.onEnter.uri)}
+                            pixelsPerMeter={PPM}
+                            source={asset('info_icon.png')}
+                            tooltip={tooltip}
+                            translateX={degreesToPixels(tooltip.rotationY)}
+                          />
+                        );
+                      }
                       return (
                         <InfoButton
                           key={index}

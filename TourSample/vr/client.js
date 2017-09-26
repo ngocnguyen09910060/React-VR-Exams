@@ -15,6 +15,13 @@
  */
 import {VRInstance} from 'react-vr-web';
 
+const SimpleRaycaster = {
+  getType: () => "simple",
+  getRayOrigin: () => [0, 0, 0],
+  getRayDirection: () => [0, 0, -1],
+  drawsCursor: () => true
+};
+
 function init(bundle, parent, options) {
   const vr = new VRInstance(bundle, 'TourSample', parent, {
     // Show a gaze cursor.
@@ -26,7 +33,23 @@ function init(bundle, parent, options) {
   };
   // Begin the animation loop
   vr.start();
+  window.vr = vr;
+  window.addEventListener('vrdisplaypresentchange', viewInVR);
+  window.addEventListener('vrdisplaypresentchange',addRaycastersFn=function(){addRaycasters(vr)},false);
+
   return vr;
+}
+
+function viewInVR(e) {
+  if (e.target) {
+    vr.rootView.context.worker.postMessage({
+      type: 'viewInVR'
+    });
+  }
+}
+
+function addRaycasters(vr) {
+  vr.guiSys._raycasters = [SimpleRaycaster];
 }
 
 window.ReactVR = {init};
