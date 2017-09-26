@@ -55,9 +55,14 @@ export default class WelcomeToVR extends React.Component {
     }
   }
 
+  handleInput(event){
+    //console.log(event.nativeEvent.inputEvent.eventType);
+  }
+
   render() {
+    //https://github.com/facebook/react-vr/issues/112
     return (
-      <View>
+      <View onInput={this.handleInput}>
         <Pano source={asset('chess-world.jpg')}/>
         <View style={{
           transform: [
